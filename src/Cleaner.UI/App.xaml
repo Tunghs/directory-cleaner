@@ -4,5 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Cleaner.UI"
     StartupUri="ShellWindow.xaml">
-    <Application.Resources />
+    <Application.Resources>
+        <ResourceDictionary>
+            <di:ViewModelLocator xmlns:di="clr-namespace:Cleaner.UI.Components" x:Key="ViewModelLocator" />
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>
