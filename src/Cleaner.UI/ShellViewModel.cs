@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Cleaner.Common.Bases;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cleaner.UI
 {
-    internal class ShellViewModel
+    public class ShellViewModel : ViewModelBase
     {
     }
 }

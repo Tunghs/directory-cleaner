@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using Cleaner.UI.Viewers;
+
+using CommunityToolkit.Mvvm.DependencyInjection;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cleaner.UI
@@ -18,6 +21,12 @@ namespace Cleaner.UI
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
+
+            // Services
+
+            // ViewModels
+            services.AddTransient<ShellViewModel>();
+            services.AddTransient<SettingViewModel>();
 
             return services.BuildServiceProvider();
         }
