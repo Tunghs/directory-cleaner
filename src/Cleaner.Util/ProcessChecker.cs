@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -9,6 +10,39 @@ namespace Cleaner.Util
 {
     public class ProcessChecker
     {
+        public static bool IsOpen(string _applicationName)
+        {
+            bool isDuplcate = false;
+            if (ProcessChecker.Do(_applicationName))
+            {
+                isDuplcate = true;
+
+                string? processName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+                int currentProcess = Process.GetCurrentProcess().Id;
+                Process[] processes = Process.GetProcessesByName(processName);
+                foreach (Process process in processes)
+                {
+                    if (currentProcess == process.Id)
+                    {
+                        continue;
+                    }
+
+                    // find MainWindow Title
+                    IntPtr hwnd = ProcessChecker.FindWindow(null, _applicationName);
+                    if (hwnd.ToInt32() > 0)
+                    {
+                        //Activate it
+                        ProcessChecker.SetForegroundWindow(hwnd);
+
+                        WindowShowStyle command = ProcessChecker.IsIconicNative(hwnd) ? WindowShowStyle.Restore : WindowShowStyle.Show;
+                        ProcessChecker.ShowWindow(hwnd, command);
+                    }
+                }
+            }
+
+            return isDuplcate;
+        }
+
         private static Mutex _mutex;
 
         /// <summary>
