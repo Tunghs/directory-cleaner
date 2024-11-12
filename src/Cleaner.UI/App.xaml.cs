@@ -40,9 +40,9 @@ namespace Cleaner.UI
 
         private void ShellWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
-            _shellWindow.Hide();
             _notify.Visible = true;
             _notify.ShowBalloonTip(200);
+            _shellWindow.Hide();
             e.Cancel = true;
         }
 
@@ -75,8 +75,9 @@ namespace Cleaner.UI
 
         private void Open(object sender, System.EventArgs e)
         {
-            _shellWindow.ShowDialog();
             _notify.Visible = false;
+            _shellWindow.ShowDialog();
+ 
         }
 
         private void Exit(object sender, System.EventArgs e)
@@ -85,6 +86,7 @@ namespace Cleaner.UI
             {
                 return;
             }
+            _notify.Dispose();
             Current.Shutdown();
         }
         #endregion
