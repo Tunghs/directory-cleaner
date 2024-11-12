@@ -2,6 +2,9 @@
 
 using System.Windows;
 
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
+
 namespace Cleaner.UI
 {
     /// <summary>
@@ -11,6 +14,8 @@ namespace Cleaner.UI
     {
         #region Fields
         private const string _APPLICATION_NAME_ = "Directory Cleaner";
+        private NotifyIcon _notify;
+        private ShellWindow _shellWindow;
         #endregion
 
         public App()
@@ -22,12 +27,66 @@ namespace Cleaner.UI
         {
             if (ProcessChecker.IsOpen(_APPLICATION_NAME_))
             {
-                MessageBox.Show("해당 프로그램이 이미 실행중 입니다.", "Warning");
+                MessageBox.Show("The program is already running.", "Warning");
+                Current.Shutdown();
             }
+
+            _shellWindow = new ShellWindow();
+            _shellWindow.Closing += ShellWindow_Closing;
+            InitNotifyIcon();
+
+            _shellWindow.ShowDialog();
+        }
+
+        private void ShellWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _shellWindow.Hide();
+            _notify.Visible = true;
+            _notify.ShowBalloonTip(200);
+            e.Cancel = true;
         }
 
         #region Methods
+        private void InitNotifyIcon()
+        {
+            try
+            {
+                // var sri = System.Windows.Application.GetResourceStream(new Uri(@"C:\Users\selee\Pictures\Capture\20240826_111524.png", UriKind.Absolute));
+                var bitmap = new Bitmap(@"C:\Users\selee\Pictures\Capture\20240826_111524.png");
+                var handle = bitmap.GetHicon();
 
+                ContextMenuStrip menu = new ContextMenuStrip();
+                menu.Items.Add(new ToolStripMenuItem("Open Directory Cleaner", null, new EventHandler(Open)));
+                menu.Items.Add(new ToolStripSeparator());
+                menu.Items.Add(new ToolStripMenuItem("Exit", null, new EventHandler(Exit)));
+
+                _notify = new NotifyIcon();
+                _notify.ContextMenuStrip = menu;
+                _notify.Icon = Icon.FromHandle(handle);
+                _notify.BalloonTipTitle = _APPLICATION_NAME_;
+                _notify.BalloonTipText = "Program is running in behind";
+                _notify.DoubleClick += Open;
+            }
+            catch (Exception ex)
+            {
+               MessageBox.Show("Notify Icon Error", ex.Message);
+            }
+        }
+
+        private void Open(object sender, System.EventArgs e)
+        {
+            _shellWindow.ShowDialog();
+            _notify.Visible = false;
+        }
+
+        private void Exit(object sender, System.EventArgs e)
+        {
+            if (MessageBox.Show($"Are you sure you want to exit {_APPLICATION_NAME_}?", "Exit", MessageBoxButton.YesNo) == MessageBoxResult.No)
+            {
+                return;
+            }
+            Current.Shutdown();
+        }
         #endregion
     }
 

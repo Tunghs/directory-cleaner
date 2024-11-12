@@ -2,8 +2,7 @@
     x:Class="Cleaner.UI.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Cleaner.UI"
-    StartupUri="ShellWindow.xaml">
+    xmlns:local="clr-namespace:Cleaner.UI">
     <Application.Resources>
         <ResourceDictionary>
             <di:ViewModelLocator xmlns:di="clr-namespace:Cleaner.UI.Components" x:Key="ViewModelLocator" />
