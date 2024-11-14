@@ -25,8 +25,8 @@ namespace Cleaner.UI
             // Services
 
             // ViewModels
-            services.AddTransient<ShellViewModel>();
             services.AddTransient<SettingViewModel>();
+            services.AddTransient<ShellViewModel>();
 
             return services.BuildServiceProvider();
         }

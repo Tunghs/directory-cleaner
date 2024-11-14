@@ -77,7 +77,6 @@ namespace Cleaner.UI
         {
             _notify.Visible = false;
             _shellWindow.ShowDialog();
- 
         }
 
         private void Exit(object sender, System.EventArgs e)

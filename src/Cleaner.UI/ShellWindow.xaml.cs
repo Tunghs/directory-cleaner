@@ -12,12 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using Wpf.Ui.Controls;
+
 namespace Cleaner.UI
 {
     /// <summary>
     /// ShellWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class ShellWindow : Window
+    public partial class ShellWindow : FluentWindow
     {
         public ShellWindow()
         {
