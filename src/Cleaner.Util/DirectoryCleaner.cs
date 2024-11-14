@@ -1,25 +1,26 @@
 ﻿
-
 namespace Cleaner.Util
 {
     public class DirectoryCleaner
     {
-        private long _availableSpace;
-        private long _totalSpace;
         private double _desiredFreeRatio;
         private string _managedDirectoryPath;
         private SearchOption _searchOption = SearchOption.TopDirectoryOnly;
 
-        public void CheckDriveStatus()
+        public long TotalSpace { get; private set; }
+        public long AvailableSpace { get; private set; }
+
+        private void CheckDriveStatus(string path)
         {
-            DriveInfo drive = new DriveInfo("C");
-            _availableSpace = drive.AvailableFreeSpace;
-            _totalSpace = drive.TotalSize;
+            DriveInfo drive = new DriveInfo(path);
+            AvailableSpace = drive.AvailableFreeSpace;
+            TotalSpace = drive.TotalSize;
         }
 
         public void SetManagedDirectoryPath(string directoryPath)
         {
             _managedDirectoryPath = directoryPath;
+            CheckDriveStatus(Path.GetPathRoot(directoryPath));
         }
 
         public void SetDesiredFreeRatio(double desiredFreeRatio)
@@ -65,7 +66,7 @@ namespace Cleaner.Util
         private long ComputeRequiredFreeSpace()
         {
             DriveInfo drive = new DriveInfo("C");
-            return (long)((1 - _desiredFreeRatio) * _totalSpace) - drive.AvailableFreeSpace;
+            return (long)((1 - _desiredFreeRatio) * TotalSpace) - drive.AvailableFreeSpace;
         }
     }
 }
