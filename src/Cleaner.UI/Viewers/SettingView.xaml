@@ -16,6 +16,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <Grid>
@@ -73,5 +74,22 @@
                 IsReadOnly="True"
                 PlaceholderText="Workspace Path" />
         </Grid>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ui:Button
+                HorizontalAlignment="Stretch"
+                Command="{Binding OpCleanerStartCommand}"
+                Content="Start" />
+            <ui:Button
+                Grid.Column="2"
+                HorizontalAlignment="Stretch"
+                Command="{Binding OpCleanerStartCommand}"
+                Content="Stop" />
+        </Grid>
+
     </Grid>
 </UserControl>

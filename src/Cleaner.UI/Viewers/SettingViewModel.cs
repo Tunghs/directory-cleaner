@@ -11,7 +11,7 @@ namespace Cleaner.UI.Viewers
     public partial class SettingViewModel : ViewModelBase
     {
         #region Fields
-        private OpenFolderDialog _openFolderDialog = new OpenFolderDialog() { Title = "Select Save Folder" };
+        private OpenFolderDialog _openFolderDialog = new OpenFolderDialog() { Title = "Select Directory" };
         private DirectoryCleaner _directoryCleaner = new DirectoryCleaner();
         #endregion
 
@@ -35,6 +35,12 @@ namespace Cleaner.UI.Viewers
                 DirectoryPath = _openFolderDialog.FolderName;
                 InitDirectory();
             }
+        }
+
+        [RelayCommand]
+        public void OpCleanerStart()
+        {
+            _directoryCleaner.Run();
         }
         #endregion
 

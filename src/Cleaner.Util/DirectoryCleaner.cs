@@ -6,6 +6,7 @@ namespace Cleaner.Util
         private double _desiredFreeRatio;
         private string _managedDirectoryPath;
         private SearchOption _searchOption = SearchOption.TopDirectoryOnly;
+        private System.Timers.Timer _timer;
 
         public long TotalSpace { get; private set; }
         public long AvailableSpace { get; private set; }
@@ -31,6 +32,19 @@ namespace Cleaner.Util
         public void Run()
         {
             Cleanup();
+        }
+
+        public void Run(double time)
+        {
+            _timer = new System.Timers.Timer(time);
+            _timer.Elapsed += (sender, e) => Cleanup();
+            _timer.Start();
+        }
+
+        public void Stop()
+        {
+            _timer.Elapsed -= (sender, e) => Cleanup();
+            _timer.Stop();
         }
 
         private void Cleanup()
