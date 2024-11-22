@@ -7,7 +7,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>directory-cleaner.ico</ApplicationIcon>
+    <AssemblyName>Directory Cleaner</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="directory-cleaner.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
