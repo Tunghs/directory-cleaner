@@ -1,6 +1,9 @@
 ﻿using Cleaner.Util;
 
+using System.IO;
 using System.Windows;
+
+using Wpf.Ui.Controls;
 
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -16,6 +19,7 @@ namespace Cleaner.UI
         private const string _APPLICATION_NAME_ = "Directory Cleaner";
         private NotifyIcon _notify;
         private ShellWindow _shellWindow;
+        private bool _isDuplicated;
         #endregion
 
         public App()
@@ -28,6 +32,7 @@ namespace Cleaner.UI
             if (ProcessChecker.IsOpen(_APPLICATION_NAME_))
             {
                 MessageBox.Show("The program is already running.", "Warning");
+                _isDuplicated = true;
                 Current.Shutdown();
             }
 
@@ -36,10 +41,16 @@ namespace Cleaner.UI
             InitNotifyIcon();
 
             _shellWindow.ShowDialog();
+            Logger.Instance.Print(Logger.LogLevel.INFO, $"프로그램 시작.");
         }
 
         private void ShellWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (_isDuplicated)
+            {
+                return;
+            }
+
             _notify.Visible = true;
             _notify.ShowBalloonTip(200);
             _shellWindow.Hide();
@@ -51,8 +62,8 @@ namespace Cleaner.UI
         {
             try
             {
-                // var sri = System.Windows.Application.GetResourceStream(new Uri(@"C:\Users\selee\Pictures\Capture\20240826_111524.png", UriKind.Absolute));
-                var bitmap = new Bitmap(@"C:\Users\selee\Pictures\Capture\20240826_111524.png");
+                var sri = System.Windows.Application.GetResourceStream(new Uri(@"directory-cleaner.ico", UriKind.Relative));
+                var bitmap = new Bitmap(sri.Stream);
                 var handle = bitmap.GetHicon();
 
                 ContextMenuStrip menu = new ContextMenuStrip();
@@ -69,7 +80,8 @@ namespace Cleaner.UI
             }
             catch (Exception ex)
             {
-               MessageBox.Show("Notify Icon Error", ex.Message);
+                MessageBox.Show("Notify Icon Error," + ex.Message);
+                Logger.Instance.Print(Logger.LogLevel.ERROR, "Notify Icon Error. " + ex.Message);
             }
         }
 
@@ -81,12 +93,14 @@ namespace Cleaner.UI
 
         private void Exit(object sender, System.EventArgs e)
         {
-            if (MessageBox.Show($"Are you sure you want to exit {_APPLICATION_NAME_}?", "Exit", MessageBoxButton.YesNo) == MessageBoxResult.No)
+            if (MessageBox.Show($"Are you sure you want to exit {_APPLICATION_NAME_}?", "Exit", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.No)
             {
                 return;
             }
             _notify.Dispose();
             Current.Shutdown();
+
+            Logger.Instance.Print(Logger.LogLevel.INFO, $"프로그램 종료.");
         }
         #endregion
     }
