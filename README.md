@@ -13,5 +13,6 @@ Set the interval for the action (if not set, it will run immediately).
 ![Interval](https://github.com/user-attachments/assets/b339097d-a86d-4e1c-82d1-4f39a53e6336)
 
 ## Tray Icon
-If you want to exit the program, click the exit button on Tray Icon.
+If you want to exit the program, click the exit button on Tray Icon.  
+
 ![tray icon](https://github.com/user-attachments/assets/341e5dfb-e0dc-4730-93f2-52daa42118c3)
