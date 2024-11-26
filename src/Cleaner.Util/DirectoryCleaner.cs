@@ -1,5 +1,4 @@
-﻿
-namespace Cleaner.Util
+﻿namespace Cleaner.Util
 {
     public class DirectoryCleaner
     {
@@ -12,6 +11,7 @@ namespace Cleaner.Util
         public long AvailableSpace { get; private set; }
 
         public delegate void TaskCompleteHandler();
+
         public TaskCompleteHandler TaskCompleteEvent;
 
         public void CheckDriveStatus()
@@ -85,7 +85,7 @@ namespace Cleaner.Util
                 Logger.Instance.Print(Logger.LogLevel.INFO, $"작업 완료. {deletedFileCount} 개 파일 삭제");
                 TaskCompleteEvent?.Invoke();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Instance.Print(Logger.LogLevel.ERROR, "An error occurred during cleanup: " + ex.Message);
             }

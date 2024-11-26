@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Concurrent;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Cleaner.Util
 {
     public class Logger
     {
         #region Data
+
         public enum LogLevel
         {
             TRACE,  // 추적 레벨은 Debug보다 좀 더 상세한 정보를 나타냄
@@ -33,14 +30,17 @@ namespace Cleaner.Util
                 Message = msg;
             }
         }
-        #endregion
+
+        #endregion Data
 
         #region Field
+
         private object _LockObject = new object();
         private string _SaveDirectoryPath = @".\Log";
         private ConcurrentQueue<LogData> _LogProcessQueue = new ConcurrentQueue<LogData>();
         private string _FilePath = string.Empty;
-        #endregion
+
+        #endregion Field
 
         private static readonly Lazy<Logger> _Instance =
             new Lazy<Logger>(() => new Logger());
