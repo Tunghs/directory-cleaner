@@ -24,9 +24,14 @@
         </Grid.RowDefinitions>
 
         <ui:TitleBar
+            x:Name="TitleBar"
             Title="Directory Cleaner"
             ForceShutdown="False"
-            ShowMaximize="False" />
+            ShowMaximize="False">
+            <ui:TitleBar.Icon>
+                <ui:ImageIcon Source="/directory-cleaner.ico" />
+            </ui:TitleBar.Icon>
+        </ui:TitleBar>
 
         <Grid Grid.Row="1" Margin="10,5,10,10">
             <viewers:SettingView />
