@@ -9,6 +9,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>directory-cleaner.ico</ApplicationIcon>
     <AssemblyName>Directory Cleaner</AssemblyName>
+    <BaseOutputPath>..\Outputs</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
