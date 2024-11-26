@@ -9,7 +9,9 @@
     xmlns:viewers="clr-namespace:Cleaner.UI.Viewers"
     Title="ShellWindow"
     Width="500"
-    Height="480"
+    Height="490"
+    MinWidth="500"
+    MinHeight="490"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
     WindowCornerPreference="Round"
@@ -21,7 +23,10 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar Title="Directory Cleaner" ForceShutdown="False" />
+        <ui:TitleBar
+            Title="Directory Cleaner"
+            ForceShutdown="False"
+            ShowMaximize="False" />
 
         <Grid Grid.Row="1" Margin="10,5,10,10">
             <viewers:SettingView />
