@@ -11,12 +11,15 @@ namespace Cleaner.UI.Viewers
     public partial class SettingViewModel : ViewModelBase
     {
         #region Fields
+
         private OpenFolderDialog _openFolderDialog;
         private DirectoryCleaner _directoryCleaner;
         private double _interval = 0;
-        #endregion
+
+        #endregion Fields
 
         #region UI Variable
+
         [ObservableProperty]
         private string _directoryPath;
 
@@ -49,7 +52,8 @@ namespace Cleaner.UI.Viewers
 
         [ObservableProperty]
         private bool _isEnabledStopButton;
-        #endregion
+
+        #endregion UI Variable
 
         public SettingViewModel()
         {
@@ -59,6 +63,7 @@ namespace Cleaner.UI.Viewers
         }
 
         #region Command
+
         [RelayCommand]
         public void OnButtonClick(string @param)
         {
@@ -67,31 +72,40 @@ namespace Cleaner.UI.Viewers
                 case "UpdateThresholdRatio":
                     UpdateThresholdRatio();
                     break;
+
                 case "OpenFileDialog":
                     OpenFileDialog();
                     break;
+
                 case "Start":
                     StartCleaner();
-                    break;                     
+                    break;
+
                 case "Stop":
                     StopCleaner();
-                    break;                
+                    break;
+
                 case "UpdateDirectoryStatus":
                     UpdateDirectoryStatus();
-                    break;                
+                    break;
+
                 case "ApplyTimer":
                     ApplyTimer();
                     break;
+
                 case "ResetTimer":
                     IntervalMin = "0";
                     break;
+
                 default:
                     break;
             }
         }
-        #endregion
+
+        #endregion Command
 
         #region Private Methods
+
         private void InitDirectory()
         {
             _directoryCleaner.SetManagedDirectoryPath(DirectoryPath);
@@ -191,6 +205,7 @@ namespace Cleaner.UI.Viewers
 
             Logger.Instance.Print(Logger.LogLevel.INFO, $"Drive 상태 확인. 현재 경로: \"{DirectoryPath}\" Total: {DirectorySizeStr}, Available: {AvailableSizeStr}");
         }
-        #endregion
+
+        #endregion Private Methods
     }
 }
