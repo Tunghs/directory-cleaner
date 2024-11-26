@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Resource Include="directory-cleaner.ico" />
+    <Content Include="directory-cleaner.ico" />
   </ItemGroup>
 
   <ItemGroup>
